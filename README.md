@@ -32,4 +32,15 @@ Discovery: `/.well-known/x402.json` and `/openapi.json`.
 - https://dutiful.work/sample/sainsburys (PDF: https://dutiful.work/sample/sainsburys.pdf)
 - https://dutiful.work/sample/vodafone
 
+
+## Badge for integrators
+
+If your agent or service screens counterparties with Dutiful, add this badge to your README:
+
+```markdown
+[![counterparties screened: dutiful](https://dutiful.work/badge.svg)](https://dutiful.work/developers)
+```
+
+It links to our developer docs so your users can see how the checks work.
+
 Links: https://dutiful.work - https://dutiful.work/developers - https://dutiful.work/check
