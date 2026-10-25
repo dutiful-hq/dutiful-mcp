@@ -1,16 +1,6 @@
 {
   "$schema": "https://glama.ai/mcp/schemas/server.json",
-  "name": "dutiful-company-report",
-  "description": "Company background reports for agents: registry profile, officers and owners where published, OFAC SDN + UK Sanctions List screen and news/web scan, each finding cited. $3 per report in USDC on Base over x402.",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/dutiful-hq/dutiful-mcp"
-  },
-  "homepage": "https://dutiful.work",
   "maintainers": [
-    {
-      "name": "Dutiful",
-      "email": "dutifulhq@proton.me"
-    }
+    "dutiful-hq"
   ]
 }
