@@ -27,11 +27,15 @@ Discovery: `/.well-known/x402.json` and `/openapi.json`.
 
 12 registries. US coverage is SEC-reporting companies; Canada is federal corporations. The screen covers the OFAC SDN and UK Sanctions List plus a news and web scan; EU and UN lists are not screened. A report is not a credit check or a legal opinion.
 
-## See a real report
+## Try the report path before paying
 
-- https://dutiful.work/sample/sainsburys (PDF: https://dutiful.work/sample/sainsburys.pdf)
-- https://dutiful.work/sample/vodafone
+1. [Read a sample company report](https://dutiful.work/sample/sainsburys). It shows the report format and sources, not a current assessment of a company you choose.
+2. [Check coverage for your company - free](https://dutiful.work/check). Enter the company and country, then review the exact matched entity and country-specific fields before paying.
+3. If the coverage fits, [use the API or MCP flow](https://dutiful.work/developers). Buying a report requires USDC on Base and an x402-compatible wallet flow. `create_order` returns payment requirements; it does not pay.
 
+A report is not a compliance certificate, credit check or legal opinion. Registry fields vary by country. US coverage is limited to SEC-reporting entities and Canada to federal corporations; EU and UN sanctions lists are not screened.
+
+[Sample PDF](https://dutiful.work/sample/sainsburys.pdf) · [Second sample](https://dutiful.work/sample/vodafone)
 
 ## Badge for integrators
 
