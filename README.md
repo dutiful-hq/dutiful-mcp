@@ -14,6 +14,60 @@ Tools:
 
 Server card: `https://dutiful.work/.well-known/mcp/server-card.json`
 
+## Run a free MCP check (no wallet)
+
+Requires Node.js 22 and npm. Run once in a new folder:
+
+```sh
+mkdir dutiful-free-check && cd dutiful-free-check
+npm init -y
+npm install --ignore-scripts --no-audit --no-fund --save-exact @modelcontextprotocol/sdk@1.32.2
+cat > free-check.mjs <<'JS'
+import { Client } from '@modelcontextprotocol/sdk/client/index.js';
+import { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/streamableHttp.js';
+
+const client = new Client({ name: 'dutiful-free-check', version: '1.0.0' }, { capabilities: {} });
+const transport = new StreamableHTTPClientTransport(new URL('https://dutiful.work/mcp'));
+try {
+  // connect sends initialize and notifications/initialized.
+  await client.connect(transport);
+  const { tools } = await client.listTools();
+  console.log('Tools:', tools.map(tool => tool.name).join(', '));
+  // One free public-company lookup. Do not select a candidate or call create_order.
+  const result = await client.callTool({
+    name: 'check_coverage',
+    arguments: { company: 'J SAINSBURY PLC', country: 'GB' }
+  }, undefined, { timeout: 60000 });
+  if (result.isError) throw new Error('Coverage check failed; no paid follow-up was attempted.');
+  const data = result.structuredContent ?? JSON.parse(result.content.find(item => item.type === 'text').text);
+  if (!Array.isArray(data.candidates) || data.candidates.length === 0) throw new Error('No suitable match; stop without a paid call.');
+  // Print public registry fields only, not the pending order ID.
+  console.log(JSON.stringify({ candidates: data.candidates.map(({ idx, ref, name }) => ({ idx, ref, name })) }, null, 2));
+} finally {
+  await client.close();
+}
+JS
+node free-check.mjs
+```
+
+This calls only `check_coverage`, not `create_order` or a payment endpoint. No account, API key, wallet or signature is needed. The free check creates or reuses a pending order/cache record internally; it is zero-payment, not stateless. Rate limits apply, so do not run it repeatedly to poll.
+
+A separate smoke test with SDK 1.32.2 / Node 22.23.4 on 2026-10-29 observed initialization negotiating protocol `2025-06-18`, tools/list returning the three tools, and this GB lookup returning five candidates. The SDK's optional background SSE GET returned 405, but the POST-based check completed. This shortened quickstart was syntax-checked and replayed offline, not rerun against the remote service. This is evidence for this client and free flow, not every client or the paid flow.
+
+Example output, abbreviated to public fields (matches can change):
+
+```text
+Tools: check_coverage, create_order, get_report
+{
+  "candidates": [
+    { "idx": 0, "ref": "00185647", "name": "J SAINSBURY PLC" },
+    ...
+  ]
+}
+```
+
+No candidate is selected and no report is purchased. Keep pending order IDs and session headers out of public logs. If the check fails or finds no suitable match, stop; do not proceed to a paid call.
+
 ## For agents (HTTP + x402)
 
 - `POST /api/order` `{company, country}` -> JSON candidates (free)
