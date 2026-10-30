@@ -68,6 +68,18 @@ Tools: check_coverage, create_order, get_report
 
 No candidate is selected and no report is purchased. Keep pending order IDs and session headers out of public logs. If the check fails or finds no suitable match, stop; do not proceed to a paid call.
 
+## A free coverage-check example
+
+Question: "Does this name point to the company I mean, and what would a report leave out?"
+
+For a UK company, compare the legal name and company number, not just the trading name. The free [Sainsbury's sample](https://dutiful.work/sample/sainsburys) identifies J SAINSBURY PLC as company 00185647 and links to its [Companies House record](https://find-and-update.company-information.service.gov.uk/company/00185647). The sample is a dated example, not a current check of that company.
+
+Before paying for your own company check, run `check_coverage` with the company name and country (for example, `{"company":"J SAINSBURY PLC","country":"GB"}`). Review the returned matching entities and country-specific report scope. The check is free and does not buy a report. Do not assume which match index will be returned.
+
+The sample's gaps matter: it does not cover credit scores/payment behaviour, PEP screening or civil litigation, and it does not identify beneficial owners beyond what the register publishes. A registry match is not a verdict that a company is safe to trade with. US coverage is limited to SEC-reporting entities and Canada to federal corporations; the company-level sanctions screen covers the OFAC SDN and UK Sanctions List; EU and UN lists are not screened.
+
+If you choose to continue, `create_order` returns payment requirements, not payment. Company Reports cost $3.00 USDC on Base via x402, with a separate wallet-signing/payment step. [Connection and payment quickstart](https://dutiful.work/developers).
+
 ## For agents (HTTP + x402)
 
 - `POST /api/order` `{company, country}` -> JSON candidates (free)
