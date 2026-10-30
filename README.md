@@ -1,6 +1,10 @@
 # Dutiful - Company background reports for agents
 
-Research you can cite. Dutiful generates company background reports combining official registry data, a company-level screen against the OFAC SDN and UK Sanctions List, and a news and web scan. Registry facts vary by country; US coverage is limited to SEC-reporting companies and Canada to federal corporations. EU and UN sanctions lists are not screened. Every finding cites its source. Company reports cost $3 in USDC on Base via x402. Check country coverage before paying.
+Research you can cite. Before paying a registered supplier, check that the legal entity matches the business you mean. A Dutiful Company Report brings official registry facts, a company-level, name-only screen of the OFAC SDN and UK Sanctions List, and a news and web scan into one cited report. It is background research, not a verdict that a company is safe to trade with.
+
+Check coverage free before buying a report. Registry fields vary by country; US coverage is limited to SEC-reporting entities and Canada to federal corporations. EU and UN lists are not screened. No match is not clearance.
+
+The full Company Report costs $3.00 USDC on Base via x402. Payment requires a separate wallet-signing step; `create_order` returns payment requirements and does not pay.
 
 ## For agents (MCP)
 
